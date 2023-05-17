@@ -34,6 +34,7 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    # 收接acc訊息，將資料寫入notion database
     if "acc" in message.content:
         m = await account(message.content)
         await message.channel.send(m)
