@@ -14,6 +14,12 @@ async def account(message):
     price = int(message.split(' ')[2])
     select_value = str(message.split(' ')[3])
 
+    message = callNotionAPIToAddPage(time, items, price, select_value)
+
+    return message
+
+
+def callNotionAPIToAddPage(time, items, price, select_value):
     createUrl = 'https://api.notion.com/v1/pages'
     headers = {
         "Authorization": "Bearer " + token,
@@ -46,6 +52,9 @@ async def account(message):
 
     data = json.dumps(newPageData)
 
-    requests.request("POST", createUrl, headers=headers, data=data)
+    response = requests.request("POST", createUrl, headers=headers, data=data)
 
-    return "done"
+    if response.status_code == 200:
+        return "done"
+    else:
+        return "fail"
