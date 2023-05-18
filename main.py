@@ -41,7 +41,7 @@ async def on_message(message):
 
 
 async def account(message):
-    print(message)
+
     time = datetime.now().strftime('%Y-%m-%d')
     items = str(message.split(' ')[1])
     price = int(message.split(' ')[2])
