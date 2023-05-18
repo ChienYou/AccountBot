@@ -45,6 +45,7 @@ async def account(message):
     time = datetime.now().strftime('%Y-%m-%d')
     items = str(message.split(' ')[1])
     price = int(message.split(' ')[2])
+    select_value = str(message.split(' ')[3])
 
     createUrl = 'https://api.notion.com/v1/pages'
     headers = {
@@ -67,6 +68,11 @@ async def account(message):
             "Date": {
                 "type": "date",
                 "date": {"start": time}
+            },
+            "Select": {
+                "select": {
+                    "name": select_value
+                }
             }
         }
     }
