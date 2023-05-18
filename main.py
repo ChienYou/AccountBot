@@ -9,7 +9,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 client = discord.Client(intents=intents)
 
-dc_token = os.environ.get("DS_TOKEN")
+dc_token = os.environ.get("DC_TOKEN")
 
 # 調用event函式庫
 @client.event
