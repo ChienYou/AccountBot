@@ -1,13 +1,13 @@
 # AccountBot
-串接Notion API，達到運用Discord連接Notion API，回寫帳務資料
+Account bot, connecting Discord with Notion API to record financial data.
 
-## 程式設計
-1. 串接Notion API 
-2. 透過機器人接收特定字串，整理資料(系統時間、消費項目、價錢、分類)，將資料透過API寫入Notion表格中 
-3. 機器人維持上線狀態，部版至Fly.io 
-4. 將Fly.io和Github做連結，目的是為了讓程式push後可以自動部屬
+## Programming design
+1. Integrating with Notion API.
+2. Receiving specific strings through the bot, organizing data (system time, expenditure items, price, category), and writing the data to a Notion table via the API. 
+3. To keep the bot online, deploy the program to Fly.io. 
+4. Connect Fly.io and Github for automatic deployment after pushing the code.
 
-## 使用方法
+## Usage instructions
 記帳 品項 金額 分類
 (中間都用半形空格隔開)
 
