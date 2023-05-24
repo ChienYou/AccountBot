@@ -1,11 +1,15 @@
 import json
 import os
 import requests
+import redis
 from datetime import datetime
 
-dc_token = os.environ.get("DS_TOKEN")
-token = os.environ.get("NOTION_TOKEN")
-database_id = os.environ.get("NOTION_DATABASE_ID")
+redis_server = redis.from_url(os.environ.get("REDIS_URL"))
+env_table = 'env_table'
+
+dc_token = os.environ.get("DC_TOKEN")
+token = redis_server.hget(env_table, 'NOTION_TOKEN')
+database_id = redis_server.hget(env_table, 'NOTION_DATABASE_ID')
 
 
 async def account(message):

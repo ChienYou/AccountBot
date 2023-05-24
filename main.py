@@ -2,7 +2,7 @@
 import discord
 import os
 import notionService
-
+import redisServer
 
 # client是跟discord連接，intents是要求機器人的權限
 intents = discord.Intents.default()
@@ -30,6 +30,10 @@ async def on_message(message):
     if "記帳" in message.content:
         m = await notionService.account(message.content)
         await message.channel.send(m)
+
+    if "記著" in message.content:
+        m = await redisServer.setEnvVariable(message.content)
+        await message.channe.send(m)
 
 
 client.run(dc_token)
