@@ -8,22 +8,28 @@ redis_server = redis.from_url(os.environ.get("REDIS_URL"))
 env_table = 'env_table'
 
 dc_token = os.environ.get("DC_TOKEN")
-token = redis_server.hget(env_table, 'NOTION_TOKEN')
-database_id = redis_server.hget(env_table, 'NOTION_DATABASE_ID')
 
 
-async def account(message):
+async def account(user_id, message):
     time = datetime.now().strftime('%Y-%m-%d')
     items = str(message.split(' ')[1])
     price = int(message.split(' ')[2])
     select_value = str(message.split(' ')[3])
 
-    message = callNotionAPIToAddPage(time, items, price, select_value)
+    message = callNotionAPIToAddPage(user_id, time, items, price, select_value)
 
     return message
 
 
-def callNotionAPIToAddPage(time, items, price, select_value):
+def callNotionAPIToAddPage(user_id, time, items, price, select_value):
+    # 取得環境參數
+    env_value = str(redis_server.hget(env_table, user_id))
+    env_object = json.loads(env_value)
+
+    # 從env_table取得該使用者的環境變數
+    token = env_object["NOTION_TOKEN"]
+    database_id = env_object["NOTION_DATABASE_ID"]
+
     createUrl = 'https://api.notion.com/v1/pages'
     headers = {
         "Authorization": "Bearer " + token,
