@@ -22,18 +22,20 @@ async def on_ready():
 # 當頻道有新訊息
 async def on_message(message):
 
+    user_id = message.author.id
+
     # 排除機器人本身的訊息，避免無限循環
     if message.author == client.user:
         return
 
     # 收接記帳訊息，將資料寫入notion database
     if "記帳" in message.content:
-        m = await notionService.account(message.content)
-        await message.channel.send(m)
+        response = await notionService.account(user_id, message.content)
+        await message.channel.send(response)
 
     if "記著" in message.content:
-        m = await redisServer.setEnvVariable(message.content)
-        await message.channe.send(m)
+        response = await redisServer.setEnvVariable(user_id, message.content)
+        await message.channe.send(response)
 
 
 client.run(dc_token)
