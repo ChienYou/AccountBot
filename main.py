@@ -40,7 +40,11 @@ async def on_message(message):
         response = await notionService.account(user_id, message.content)
         await message.channel.send(response)
 
-    if "記著" in message.content:
+    if "NOTION_TOKEN" in message.content:
+        response = await redisServer.setEnvVariable(user_id, message.content)
+        await message.channe.send(response)
+
+    if "NOTION_DATABASE_ID" in message.content:
         response = await redisServer.setEnvVariable(user_id, message.content)
         await message.channe.send(response)
 
