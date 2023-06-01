@@ -13,15 +13,11 @@ def setEnvVariable(user_id, message):
     envKey = str(message_list[1])
     envValue = str(message_list[2])
 
-    db_value = redis_server.hget(env_table, user_id)
+    db_value = redis_server.hget(env_table, user_id) or '{}'
 
-    if db_value is None:
-        value_json = {envKey: envValue}
-        json_string = json.dumps(value_json)
-    else:
-        db_json = json.loads(db_value)
-        db_json[envKey] = envValue
-        json_string = json.dumps(db_json)
+    db_json = json.loads(db_value)
+    db_json[envKey] = envValue
+    json_string = json.dumps(db_json)
 
     redis_server.hset(env_table, user_id, json_string)
 
