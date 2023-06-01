@@ -28,6 +28,13 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    if ".help" in message.content:
+        message = '現有指令:\n'
+        message += '記帳 品項 金額 分類\n'
+        message += 'NOTION_TOKEN VALUE\n'
+        message += 'NOTION_DATABASE_ID VALUE\n'
+        await message.channe.send(message)
+
     # 收接記帳訊息，將資料寫入notion database
     if "記帳" in message.content:
         response = await notionService.account(user_id, message.content)
