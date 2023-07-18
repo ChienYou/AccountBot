@@ -35,11 +35,11 @@ async def on_message(message):
 
     if "NOTION_TOKEN" in message.content:
         response = redisServer.setEnvVariable(user_id, message.content)
-        await message.channe.send(response)
+        await message.channel.send(response)
 
     if "NOTION_DATABASE_ID" in message.content:
         response = redisServer.setEnvVariable(user_id, message.content)
-        await message.channe.send(response)
+        await message.channel.send(response)
 
 
 client.run(dc_token)
