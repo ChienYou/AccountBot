@@ -2,7 +2,7 @@
 import discord
 import os
 import notionService
-
+import redisServer
 
 # client是跟discord連接，intents是要求機器人的權限
 intents = discord.Intents.default()
@@ -22,14 +22,31 @@ async def on_ready():
 # 當頻道有新訊息
 async def on_message(message):
 
+    user_id = message.author.id
+
     # 排除機器人本身的訊息，避免無限循環
     if message.author == client.user:
         return
 
+    if ".help" in message.content:
+        message = '現有指令:\n'
+        message += '記帳 品項 金額 分類\n'
+        message += 'NOTION_TOKEN ${VALUE}\n'
+        message += 'NOTION_DATABASE_ID ${VALUE}\n'
+        await message.channe.send(message)
+
     # 收接記帳訊息，將資料寫入notion database
     if "記帳" in message.content:
-        m = await notionService.account(message.content)
-        await message.channel.send(m)
+        response = await notionService.account(user_id, message.content)
+        await message.channel.send(response)
+
+    if "NOTION_TOKEN" in message.content:
+        response = await redisServer.setEnvVariable(user_id, message.content)
+        await message.channe.send(response)
+
+    if "NOTION_DATABASE_ID" in message.content:
+        response = await redisServer.setEnvVariable(user_id, message.content)
+        await message.channe.send(response)
 
 
 client.run(dc_token)
