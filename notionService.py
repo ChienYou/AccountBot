@@ -30,6 +30,9 @@ def callNotionAPIToAddPage(user_id, time, items, price, select_value):
     token = env_object["NOTION_TOKEN"]
     database_id = env_object["NOTION_DATABASE_ID"]
 
+    print('token:' + token)
+    print('database_id: ' + database_id)
+
     createUrl = 'https://api.notion.com/v1/pages'
     headers = {
         "Authorization": "Bearer " + token,
