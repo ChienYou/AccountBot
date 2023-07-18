@@ -10,8 +10,8 @@ env_table = 'env_table'
 def setEnvVariable(user_id, message):
 
     message_list = message.split(' ')
-    envKey = str(message_list[1])
-    envValue = str(message_list[2])
+    envKey = str(message_list[0])
+    envValue = str(message_list[1])
 
     db_value = redis_server.hget(env_table, user_id) or '{}'
 
