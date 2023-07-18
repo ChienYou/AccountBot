@@ -4,7 +4,7 @@ import requests
 import redis
 from datetime import datetime
 
-redis_server = redis.from_url(os.environ.get("REDIS_URL"))
+redis_server = redis.from_url(os.environ.get("REDIS_URL"), decode_responses=True)
 env_table = 'env_table'
 
 dc_token = os.environ.get("DC_TOKEN")

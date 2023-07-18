@@ -3,7 +3,7 @@ import json
 import redis
 import os
 
-redis_server = redis.from_url(os.environ.get("REDIS_URL"))
+redis_server = redis.from_url(os.environ.get("REDIS_URL"), decode_responses=True)
 env_table = 'env_table'
 
 
