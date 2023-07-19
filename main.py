@@ -30,7 +30,7 @@ async def on_message(message):
 
     # 收接記帳訊息，將資料寫入notion database
     if "記帳" in message.content:
-        response = notionService.account(user_id, message.content)
+        response = await notionService.account(user_id, message.content)
         await message.channel.send(response)
 
     if "NOTION_TOKEN" in message.content:
